@@ -1,0 +1,19 @@
+name: Save Current Dev Branch
+
+on:
+  push:
+    branches:
+      - 'dev_v*'
+
+jobs:
+  create:
+    if: github.event.created
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set new dev branch
+      run: |
+        gh variable set CURR_DEV_BRANCH --body "${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}"
+      env:
+        CURR_DEV_BRANCH: ${{ vars.CURR_DEV_BRANCH }}
+        GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
