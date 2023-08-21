@@ -14,7 +14,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Set new dev branch
       run: |
-        dev_branch="${CURR_UAT_BRANCH}"
+        dev_branch="${CURR_DEV_BRANCH}"
         uat_branch="uat_v${dev_branch#dev_v}"
         
         echo $uat_branch
