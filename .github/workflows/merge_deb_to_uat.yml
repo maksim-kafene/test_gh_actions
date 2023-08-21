@@ -12,16 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set new dev branch
+    - name: Create PR and Merge
       run: |
         dev_branch="${CURR_DEV_BRANCH}"
         uat_branch="uat_v${dev_branch#dev_v}"
         
         echo $uat_branch
         echo $dev_branch
-        
+
         gh pr create --title "DEV->UAT Scheduled Merge" --body "It's automated job to deliever development code for testing"
-        gh pr create --base $uat_branch  --head $dev_branch
+        gh pr create --base "$uat_branch"  --head "$dev_branch"
         
         
       env:
