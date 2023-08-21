@@ -1,0 +1,24 @@
+name: Deliever development for QA
+
+on:
+    schedule:
+        - cron: '0 17 * * *'
+    push:
+        branches:
+        - 'dev_v*'      
+
+jobs:
+  create:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set new dev branch
+      run: |
+        dev_branch="${CURR_UAT_BRANCH}"
+        uat_branch="uat_v${dev_branch#dev_v}"
+        
+        echo $uat_branch
+        
+      env:
+        CURR_DEV_BRANCH: ${{ vars.CURR_DEV_BRANCH }}
+        GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
