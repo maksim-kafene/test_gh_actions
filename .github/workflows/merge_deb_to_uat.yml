@@ -20,9 +20,10 @@ jobs:
         echo $uat_branch
         echo $dev_branch
 
-        gh pr create --title "DEV->UAT Scheduled Merge" --body "It's automated job to deliever development code for testing" --base "$uat_branch"  --head "$dev_branch"
+        PR_URL=$(gh pr create --title "DEV->UAT Scheduled Merge" --body "It's automated job to deliever development code for testing" --base "$uat_branch"  --head "$dev_branch")
         
-        
+        gh pr merge "$PR_URL" -m
+
       env:
         CURR_DEV_BRANCH: ${{ vars.CURR_DEV_BRANCH }}
         GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
